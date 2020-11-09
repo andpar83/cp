@@ -5,10 +5,13 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\BIT">
+      <UniqueIdentifier>{0ae74f39-5bef-4549-b0f0-964df8070841}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyDs.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="BIT_PURQ.h">
+      <Filter>Header Files\BIT</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

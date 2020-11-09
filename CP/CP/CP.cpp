@@ -1,8 +1,9 @@
 #include <iostream>
-#include "../CPLib/MyDs.h"
+#include "../CPLib/BIT_PURQ.h"
 
 int main()
 {
-	MyDs ds;
-	ds.Hello();
+	BIT_PURQ<> bit(10);
+	bit.add(5, 4);
+	std::cout << bit.sum(2, 6) << std::endl;
 }
