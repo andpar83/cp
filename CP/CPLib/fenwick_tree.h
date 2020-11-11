@@ -38,9 +38,27 @@ public:
 	/// <summary>
 	/// Creates a Fenwick Tree with n elements indexed from 0 to (n - 1) inclusive and initial value 0.
 	/// </summary>
+	/// <remarks>
+	/// Complexity is O(n).
+	/// </remarks>
 	/// <param name="n">Number of elements in the tree.</param>
 	fenwick_tree(size_t n) : ft_(n + 1, 0)
 	{
+	}
+
+	/// <summary>
+	/// Creates a Fenwick Tree with n elements equal to size of <paramref name="v"/> indexed from 0 to (n - 1) inclusive and initial values from <paramref name="v"/>.
+	/// </summary>
+	/// <remarks>
+	/// Complexity is O(n * log n).
+	/// </remarks>
+	/// <typeparam name="TInit">Integer type of original elements. Could be different from the <typeparamref name="T"/> for example if T is long long and TInit is int.</typeparam>
+	/// <param name="v">Vector with initial values.</param>
+	template <typename TInit>
+	fenwick_tree(const std::vector<TInit>& v) : ft_(v.size() + 1, 0)
+	{
+		for (size_t i = 0; i < v.size(); ++i)
+			add(i, v[i]);
 	}
 
 	/// <summary>
