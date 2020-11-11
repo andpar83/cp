@@ -1,6 +1,9 @@
 #pragma once
 #include <cassert>
 #include <vector>
+#include <unordered_map>
+#include <limits>
+#include <stdexcept>
 
 namespace cp
 {
@@ -31,9 +34,32 @@ namespace cp
 
 */
 /// </example>
-template <typename T = int>
+template <typename T = int, typename Container = std::vector<T>>
 class fenwick_tree
 {
+	template <typename TraitContainer>
+	struct container_trait;
+
+	template <typename TraitContainerElement>
+	struct container_trait<std::vector<TraitContainerElement>>
+	{
+		static void init(std::vector<TraitContainerElement>& container, unsigned long long size)
+		{
+			if (size >= std::numeric_limits<size_t>::max())
+				throw std::out_of_range("size of vector is too big");
+			container.resize(static_cast<size_t>(size), 0);
+		}
+	};
+
+	template <typename TraitContainerElement1, typename TraitContainerElement2>
+	struct container_trait<std::unordered_map<TraitContainerElement1, TraitContainerElement2>>
+	{
+		static void init(std::unordered_map<TraitContainerElement1, TraitContainerElement2>& container, unsigned long long size)
+		{
+			// Do nothing
+		}
+	};
+	
 public:
 	/// <summary>
 	/// Creates a Fenwick Tree with n elements indexed from 0 to (n - 1) inclusive and initial value 0.
@@ -42,8 +68,9 @@ public:
 	/// Complexity is O(n).
 	/// </remarks>
 	/// <param name="n">Number of elements in the tree.</param>
-	fenwick_tree(size_t n) : ft_(n + 1, 0)
+	fenwick_tree(unsigned long long n) : n_(n + 1)
 	{
+		container_trait<Container>::init(ft_, n_);
 	}
 
 	/// <summary>
@@ -55,8 +82,9 @@ public:
 	/// <typeparam name="TInit">Integer type of original elements. Could be different from the <typeparamref name="T"/> for example if T is long long and TInit is int.</typeparam>
 	/// <param name="v">Vector with initial values.</param>
 	template <typename TInit>
-	fenwick_tree(const std::vector<TInit>& v) : ft_(v.size() + 1, 0)
+	fenwick_tree(const std::vector<TInit>& v) : n_(v.size() + 1)
 	{
+		container_trait<Container>::init(ft_, n_);
 		for (size_t i = 0; i < v.size(); ++i)
 			add(i, v[i]);
 	}
@@ -71,7 +99,7 @@ public:
 	/// <param name="val">Value to add.</param>
 	void add(size_t pos, T val)
 	{
-		for (++pos; pos < ft_.size(); pos += pos & (~pos + 1))
+		for (++pos; pos < n_; pos += pos & (~pos + 1))
 			ft_[pos] += val;
 	}
 
@@ -86,7 +114,7 @@ public:
 	/// Left bound is 0.
 	/// </param>
 	/// <returns>Sum of the elements from 0 to <paramref name="to_inclusive"/> inclusive.</returns>
-	T sum(size_t to_inclusive) const
+	T sum(size_t to_inclusive) // const // It's not const because could update map
 	{
 		T res = 0;
 		for (auto i = to_inclusive + 1; i > 0; i -= i & (~i + 1))
@@ -106,14 +134,15 @@ public:
 	/// Should be greater or equal to <paramref name="from_inclusive"/>.
 	/// </param>
 	/// <returns>Sum of the elements from <paramref name="from_invlusive"/> to <paramref name="to_inclusive"/> inclusive.</returns>
-	T sum(size_t from_inclusive, size_t to_inclusive) const
+	T sum(size_t from_inclusive, size_t to_inclusive) // const
 	{
 		assert(from_inclusive <= to_inclusive);
 		return sum(to_inclusive) - (from_inclusive ? sum(from_inclusive - 1) : 0);
 	}
 
 private:
-	std::vector<T> ft_;
+	const unsigned long long	n_;
+	Container					ft_;
 };
 
 }
