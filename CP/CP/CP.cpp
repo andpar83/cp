@@ -3,6 +3,7 @@
 
 int main()
 {
+	// Example
 	cp::fenwick_tree<long long, std::unordered_map<unsigned long long, long long>> ft(1000'000'000'000'000ULL);
 
 	ft.add(1000'000'000'000ULL - 1, 2);
