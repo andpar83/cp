@@ -59,8 +59,7 @@ public:
 
 	TEST_METHOD(TestMapContainer)
 	{
-		static const unsigned long long SIZE = 1000'000'000'000ULL;
-		cp::fenwick_tree<int, std::unordered_map<int, int>> ft(SIZE);
+		cp::fenwick_tree<int, std::unordered_map<int, int>> ft(5);
 
 		ft.add(2, 2);
 		Assert::AreEqual(2, ft.sum(2, 4));
@@ -77,6 +76,22 @@ public:
 		// Element with index 2 should have value of 3 because add method adds and not overwrites existing value
 		Assert::AreEqual(3, ft.sum(2, 2));
 		Assert::AreEqual(9, ft.sum(0, 4));
+	}
+
+	TEST_METHOD(TestHugeIndexes)
+	{
+		const auto N12 = 1000'000'000'000ULL; // 10^12
+		const auto N15 = 1000'000'000'000'000ULL; // 10^15
+		
+		cp::fenwick_tree<long long, std::unordered_map<unsigned long long, long long>> ft(N15);
+		
+		ft.add(N12 - 1, 2);
+		ft.add(N12, 3);
+		ft.add(N15 - 1, 1);
+
+		Assert::AreEqual(5LL, ft.sum(0, N12));
+		Assert::AreEqual(6LL, ft.sum(0, N15 - 1));
+		Assert::AreEqual(1LL, ft.sum(N12 + 1, N15 - 1));
 	}
 };
 	
