@@ -1,0 +1,21 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/CP/.vs/
+/CP/Debug
+/CP/Release
+/CP/x64
+/CP/CP/Debug
+/CP/CP/Release
+/CP/CP/x64
+/CP/CP/CP.vcxproj.user
+/CP/CPLib/Debug
+/CP/CPLib/Release
+/CP/CPLib/x64
+/CP/CPLib/CPLib.vcxproj.user
+/CP/CPLib.Tests/Debug
+/CP/CPLib.Tests/Release
+/CP/CPLib.Tests/x64
+/CP/CPLib.Tests/CPLib.Tests.vcxproj.user
