@@ -63,11 +63,15 @@ template <typename T = int, typename Container = std::vector<T>>
 class fenwick_tree
 {
 	template <typename TraitContainer>
-	struct container_trait;
+	struct container_trait
+	{
+		static const bool supported = false;
+	};
 
 	template <typename TraitContainerElement>
 	struct container_trait<std::vector<TraitContainerElement>>
 	{
+		static const bool supported = true;
 		using index_t = size_t;
 		
 		static void init(std::vector<TraitContainerElement>& container, unsigned long long size)
@@ -81,6 +85,7 @@ class fenwick_tree
 	template <typename TraitContainerElement1, typename TraitContainerElement2>
 	struct container_trait<std::unordered_map<TraitContainerElement1, TraitContainerElement2>>
 	{
+		static const bool supported = true;
 		using index_t = TraitContainerElement1;
 		
 		static void init(std::unordered_map<TraitContainerElement1, TraitContainerElement2>& container, unsigned long long size)
@@ -88,6 +93,8 @@ class fenwick_tree
 			// Do nothing
 		}
 	};
+
+	static_assert(container_trait<Container>::supported, "Container type is not supported. Only vector and unordered_map are supported");
 	
 public:
 	/// <summary>
