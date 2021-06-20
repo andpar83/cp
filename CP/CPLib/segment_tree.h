@@ -63,15 +63,14 @@ private:
 			return;
 
 		auto val = *add_[tree_pos];
+		add_[tree_pos].reset();
 		tree_[tree_pos] += val;
 
 		if (tree_left != tree_right)
 		{
-			add_[2 * tree_pos] = val;
-			add_[2 * tree_pos + 1] = val;
+			add_[2 * tree_pos] = add_[2 * tree_pos].value_or(0) + val;
+			add_[2 * tree_pos + 1] = add_[2 * tree_pos + 1].value_or(0) + val;
 		}
-
-		add_[tree_pos].reset();
 	}
 
 	T query_impl(size_t tree_pos, size_t tree_left, size_t tree_right, size_t vec_left, size_t vec_right)

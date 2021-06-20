@@ -99,6 +99,20 @@ public:
 		Assert::AreEqual(13, st.query(2, 4));
 		Assert::AreEqual(8, st.query(1, 2));
 	}
+
+	TEST_METHOD(TestMinDoubleUpdate)
+	{
+		std::vector<int> v = { 1, 1, 1, 1 };
+		// { 1, 1, 1, 1 }
+		cp::segment_tree<> st(v);
+
+		st.add(2, 3, 2);
+		// { 1, 1, 3, 3 }
+		st.add(2, 3, 1);
+		// { 1, 1, 4, 4 }
+
+		Assert::AreEqual(4, st.query(3, 4));
+	}
 };
 
 }
