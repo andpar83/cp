@@ -8,10 +8,16 @@
     <Filter Include="Header Files\FenwickTree">
       <UniqueIdentifier>{0ae74f39-5bef-4549-b0f0-964df8070841}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SegmentTree">
+      <UniqueIdentifier>{e7c0f89c-ab28-4691-bd67-58a2450f8e94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fenwick_tree.h">
       <Filter>Header Files\FenwickTree</Filter>
+    </ClInclude>
+    <ClInclude Include="segment_tree.h">
+      <Filter>Header Files\SegmentTree</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
