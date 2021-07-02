@@ -11,6 +11,9 @@
     <Filter Include="Header Files\SegmentTree">
       <UniqueIdentifier>{e7c0f89c-ab28-4691-bd67-58a2450f8e94}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Math">
+      <UniqueIdentifier>{eebf1310-0ca6-47a7-b263-45c0d817e1f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fenwick_tree.h">
@@ -18,6 +21,9 @@
     </ClInclude>
     <ClInclude Include="segment_tree.h">
       <Filter>Header Files\SegmentTree</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>Header Files\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
